@@ -4,16 +4,12 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-      - uses: iterative/setup-cml@v1 
+      - uses: actions/checkout@v2
       - name: Train model
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pip install -r requirements.txt
-          python train.py
-
+          train.py
+          echo "Model METRICS"
           cat metrics.txt >> report.md
-          echo "![](./plot.png)" >> report.md
-          cml comment create report.md
